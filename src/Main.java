@@ -160,9 +160,21 @@ public class Main {
             // Если попадается сложение или вычитание, то сохраняем + или - в массив с расширением на 1
             if (operations[i].equals("+") || operations[i].equals("-")) {
                 // Если следующая операция является не приоритетной (минус или плюс), то так же сохраняем число в массив
-                if (operations[i + 1].equals("+") || operations[i + 1].equals("-")) {
+                if (i + 1 < operations.length && (operations[i + 1].equals("+") || operations[i + 1].equals("-"))){
                     simplifiedEquationNumbers  = Arrays.copyOf(simplifiedEquationNumbers , simplifiedEquationNumbers .length + 1);
                     simplifiedEquationNumbers [j] = numbers[i + 1];
+                    j++;
+                }
+                // Для сохранения последнего числа в случае несоответствия предыдущим условиям
+                else if (i + 1 >= operations.length) {
+                    simplifiedEquationNumbers  = Arrays.copyOf(simplifiedEquationNumbers , simplifiedEquationNumbers .length + 1);
+                    simplifiedEquationNumbers [j] = numbers[i + 1];
+                    j++;
+                }
+                // Для сохранения первого числа в случае несоответствия предыдущим условиям
+                else {
+                    simplifiedEquationNumbers  = Arrays.copyOf(simplifiedEquationNumbers , simplifiedEquationNumbers .length + 1);
+                    simplifiedEquationNumbers [j] = numbers[i];
                     j++;
                 }
                 nonPriorityOperations = Arrays.copyOf(nonPriorityOperations, nonPriorityOperations.length + 1);
